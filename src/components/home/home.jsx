@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-
-
+import "./home.css"
+import searchIcon from "../icons/search.jpeg"
+import pin from "../icons/pin.jpeg"
 export const Home=()=>{
      const [search,setSearch] =useState("")
      const [temp,setTemp] =useState([])
@@ -11,12 +12,12 @@ export const Home=()=>{
     const handleInput=(e)=>{
        // console.log(e.target.value)
         setSearch(e.target.value)
-        console.log(search)
+        // console.log(search)
     }
     const getData = async () => {
         let city = "patna"; //input from user.
        // console.log(search,"f")
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
         try {
           let res = await fetch(url);
           let data = await res.json();
@@ -34,7 +35,7 @@ export const Home=()=>{
           let res = await fetch(url);
           let data = await res.json();
           console.log("data", data);
-        setTemp(data.daily)
+        setTemp(data)
         } catch (error) {
           console.log(error);
         }
@@ -42,19 +43,35 @@ export const Home=()=>{
      return (
         <>
         <div>
-            <input type="text" onInput={handleInput} />
+        <div className="searchBar">
+          <div className="logoDiv">
+            <img src={pin} alt="location" />
+          </div>
+          <div className="inputDiv">
+            <input
+              type="text"
+              onChange={handleInput}
+              className="search_bar"
+              placeholder="enter your city"
+            />
+          </div>
+          <div className="searchIconDiv">
+            <img src={searchIcon} alt="search icon" />
+          </div>
+        </div>
+            {/* <input className="search_bar" type="text" onInput={handleInput} /> */}
+            <div className="temp_div">
             {
-         //  console.log(temp.current.weather[0].icon,"hello")
-                temp.map((e)=>(
+                temp.daily.map((e)=>(
                     <div key={e.lat}>
                         {/* {console.log(e,"abc")} */}
-                           <h2>{Math.floor(e.temp.min-273)}</h2> 
-                           <h2>{Math.floor(e.temp.max-273)}</h2>
-                        {/* <img src={`http://openweathermap.org/img/wn/${e.current.weather[0].icon}@2x.png`} alt="bh" /> */}
+                        <h5><span>{Math.floor(e.temp.min-273)} °C</span> / <span>{Math.floor(e.temp.max-273)} °C</span></h5>
+                          <p>{e.weather[0].description}</p>
+                        <img src={`http://openweathermap.org/img/wn/${e.weather[0].icon}@2x.png`} alt="bh" />
                     </div>
                 ))
             }
-            
+            </div>
         </div>
         </>
     )
