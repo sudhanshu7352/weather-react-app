@@ -61,7 +61,7 @@ export const Home=()=>{
         </div>
             <div className="temp_div">
            
-            {/* {temp.daily? */}
+           
             { 
             temp.daily?
                 temp.daily.map((e)=>(
@@ -72,10 +72,10 @@ export const Home=()=>{
                         <img src={`http://openweathermap.org/img/wn/${e.weather[0].icon}@2x.png`} alt="bh" />
                     </div>
                 ))
-                :<div>wait</div>
+                :<div>Loading...</div>
             }
 
-            {/* : <div>"hello"</div> } */}
+           
             </div>
         </div>
         </>
