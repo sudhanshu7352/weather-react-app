@@ -63,7 +63,7 @@ export const Home=()=>{
            
             {/* {temp.daily? */}
             { 
-            temp.daily? 
+            temp.daily?
                 temp.daily.map((e)=>(
                     <div key={e.lat}>
                         {/* {console.log(e,"abc")} */}
@@ -72,7 +72,7 @@ export const Home=()=>{
                         <img src={`http://openweathermap.org/img/wn/${e.weather[0].icon}@2x.png`} alt="bh" />
                     </div>
                 ))
-                :<div>hi</div>
+                :<div>wait</div>
             }
 
             {/* : <div>"hello"</div> } */}
