@@ -3,7 +3,7 @@ import "./home.css"
 import searchIcon from "../icons/search.jpeg"
 import pin from "../icons/pin.jpeg"
 export const Home=()=>{
-     const [search,setSearch] =useState("")
+     const [search,setSearch] =useState("pune")
      const [temp,setTemp] =useState([])
 
      useEffect(()=>{
@@ -17,7 +17,7 @@ export const Home=()=>{
     const getData = async () => {
         let city = "patna"; //input from user.
        // console.log(search,"f")
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
         try {
           let res = await fetch(url);
           let data = await res.json();
@@ -59,9 +59,11 @@ export const Home=()=>{
             <img src={searchIcon} alt="search icon" />
           </div>
         </div>
-            {/* <input className="search_bar" type="text" onInput={handleInput} /> */}
             <div className="temp_div">
-            {
+           
+            {/* {temp.daily? */}
+            { 
+            temp.daily? 
                 temp.daily.map((e)=>(
                     <div key={e.lat}>
                         {/* {console.log(e,"abc")} */}
@@ -70,7 +72,10 @@ export const Home=()=>{
                         <img src={`http://openweathermap.org/img/wn/${e.weather[0].icon}@2x.png`} alt="bh" />
                     </div>
                 ))
+                :<div>hi</div>
             }
+
+            {/* : <div>"hello"</div> } */}
             </div>
         </div>
         </>

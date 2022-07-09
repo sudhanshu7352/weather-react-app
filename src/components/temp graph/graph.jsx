@@ -47,7 +47,7 @@ export const data = {
     {
       fill: true,
       label: 'Temp',
-      data: labels.map(() => Math.floor((Math.random() * 500) + 10) ),
+      data: labels.map(() => Math.floor((Math.random() * 10) + 30) ),
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(41, 138, 228, 0.5)',
     },
