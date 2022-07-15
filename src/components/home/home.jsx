@@ -19,10 +19,10 @@ export const Home=()=>{
     //  }
      const dailyData =(e)=>{
       let arr =e.temp
-      console.log(e.weather[0])
+      console.log(e)
        setIcon(e.weather[0].icon)
-        // console.log(e,"onclick")
-        setDaily(arr)
+      //   // console.log(e,"onclick")
+         setDaily(arr)
      }
      useEffect(()=>{
       axios.get("https://ipinfo.io/json?token=52ed0181817dc8").then((res)=>{
@@ -92,7 +92,7 @@ export const Home=()=>{
             { 
             temp.daily?
                 temp.daily.map((e)=>(
-                    <div className="small_div" key={e.lat} onClick={()=>dailyData(e)}>
+                    <div className="small_div" tabindex="0" key={e.lat} onClick={()=>dailyData(e)}>
                         {/* {console.log(e,"abc")} */}
                         <h5><span>{Math.floor(e.temp.min)} °C</span> / <span>{Math.floor(e.temp.max)} °C</span></h5>
                           <p>{e.weather[0].description}</p>

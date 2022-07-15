@@ -8,11 +8,16 @@
  border: 2px solid gray;
  border-radius: 8px;
 }
-/* .search_bar{
-    width: 50%;
-    height: 26px;
-    margin-top: 20px;
-} */
+.small_div:focus{
+  background: rgb(35,144,254);
+  cursor: pointer;
+  color: white;
+}
+.small_div:hover{
+  background:rgb(36,183,163);
+  cursor: pointer;
+  color: white;
+}
 .searchBar {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 7px;
