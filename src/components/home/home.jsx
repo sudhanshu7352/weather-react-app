@@ -3,19 +3,36 @@ import "./home.css"
 import searchIcon from "../icons/search.jpeg"
 import pin from "../icons/pin.jpeg"
 import Chart from "react-apexcharts";
+import axios from "axios";
 
 export const Home=()=>{
-     const [search,setSearch] =useState("pune")
+     const [search,setSearch] =useState("")
      const [temp,setTemp] =useState([])
      const [daily,setDaily] =useState([])  
+     const [icon,setIcon] =useState("")
 
+    //  const city =()=>{
+    //   axios.get("https://ipinfo.io/json?token=52ed0181817dc8").then((res)=>{
+    //     console.log(res.data.city)
+    //        setSearch(res.data.city)
+    //   })
+    //  }
      const dailyData =(e)=>{
       let arr =e.temp
-      console.log(arr)
+      console.log(e.weather[0])
+       setIcon(e.weather[0].icon)
         // console.log(e,"onclick")
         setDaily(arr)
      }
      useEffect(()=>{
+      axios.get("https://ipinfo.io/json?token=52ed0181817dc8").then((res)=>{
+        console.log(res.data.city)
+           setSearch(res.data.city)
+      })
+      
+     },[])
+     useEffect(()=>{
+      
         getData()
     },[search])
     const handleInput=(e)=>{
@@ -24,7 +41,7 @@ export const Home=()=>{
        
     }
     const getData = async () => {
-        let city = "patna"; //input from user.
+        //input from user.
        // console.log(search,"f")
         let url = `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
         try {
@@ -61,11 +78,12 @@ export const Home=()=>{
               type="text"
               onChange={handleInput}
               className="search_bar"
+              value={search}
               placeholder="enter your city"
             />
           </div>
           <div className="searchIconDiv">
-            <img src={searchIcon} alt="search icon" />
+            <img src={searchIcon} alt="search icon"  />
           </div>
         </div>
             <div className="temp_div">
@@ -85,7 +103,10 @@ export const Home=()=>{
             }
              </div>
             <div className="graph_div">
-
+               <div className="temp_img">
+                <h1>{Math.floor(daily.max)}°C</h1>
+                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="img" />
+               </div>
               <Chart
           type="area"
           series={[
@@ -103,7 +124,7 @@ export const Home=()=>{
             yaxis: {
               labels: {
                 formatter: (val) => {
-                  return `${Math.ceil(val)}℃`;
+                  return `${Math.floor(val)}℃`;
                 },
               },
             },
