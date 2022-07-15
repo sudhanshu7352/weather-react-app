@@ -5,7 +5,11 @@ import pin from "../icons/pin.jpeg"
 export const Home=()=>{
      const [search,setSearch] =useState("pune")
      const [temp,setTemp] =useState([])
+     const [daily,setDaily] =useState([])  
 
+     const dailyData =(e)=>{
+        console.log(e.target)
+     }
      useEffect(()=>{
         getData()
     },[search])
@@ -17,7 +21,7 @@ export const Home=()=>{
     const getData = async () => {
         let city = "patna"; //input from user.
        // console.log(search,"f")
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
         try {
           let res = await fetch(url);
           let data = await res.json();
@@ -65,7 +69,7 @@ export const Home=()=>{
             { 
             temp.daily?
                 temp.daily.map((e)=>(
-                    <div key={e.lat}>
+                    <div key={e.lat} onClick={dailyData}>
                         {/* {console.log(e,"abc")} */}
                         <h5><span>{Math.floor(e.temp.min-273)} °C</span> / <span>{Math.floor(e.temp.max-273)} °C</span></h5>
                           <p>{e.weather[0].description}</p>
@@ -74,6 +78,32 @@ export const Home=()=>{
                 ))
                 :<div>Loading...</div>
             }
+              <Chart
+          type="area"
+          series={[
+            {
+              name: "Temperature",
+              data: [],
+            },
+          ]}
+          options={{
+            dataLabels: {
+              formatter: (val) => {
+                // return `${val}℃`;
+              },
+            },
+            yaxis: {
+              labels: {
+                formatter: (val) => {
+                  return `${Math.ceil(val)}℃`;
+                },
+              },
+            },
+            xaxis: {
+              categories: ["6:00am", "12:00pm", "6:00pm", "12:00am"],
+            },
+          }}
+        />
 
            
             </div>
