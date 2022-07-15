@@ -2,21 +2,26 @@ import { useEffect, useState } from "react"
 import "./home.css"
 import searchIcon from "../icons/search.jpeg"
 import pin from "../icons/pin.jpeg"
+import Chart from "react-apexcharts";
+
 export const Home=()=>{
      const [search,setSearch] =useState("pune")
      const [temp,setTemp] =useState([])
      const [daily,setDaily] =useState([])  
 
      const dailyData =(e)=>{
-        console.log(e.target)
+      let arr =e.temp
+      console.log(arr)
+        // console.log(e,"onclick")
+        setDaily(arr)
      }
      useEffect(()=>{
         getData()
     },[search])
     const handleInput=(e)=>{
-       // console.log(e.target.value)
+       
         setSearch(e.target.value)
-        // console.log(search)
+       
     }
     const getData = async () => {
         let city = "patna"; //input from user.
@@ -34,11 +39,11 @@ export const Home=()=>{
     };
    
       const getDatafor7days = async (lat, lon) => {
-        let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
+        let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=000ea10fae727b5e0d08edbb2b5f07c0`;
         try {
           let res = await fetch(url);
           let data = await res.json();
-          console.log("data", data);
+          // console.log("data", data);
         setTemp(data)
         } catch (error) {
           console.log(error);
@@ -69,21 +74,24 @@ export const Home=()=>{
             { 
             temp.daily?
                 temp.daily.map((e)=>(
-                    <div key={e.lat} onClick={dailyData}>
+                    <div className="small_div" key={e.lat} onClick={()=>dailyData(e)}>
                         {/* {console.log(e,"abc")} */}
-                        <h5><span>{Math.floor(e.temp.min-273)} °C</span> / <span>{Math.floor(e.temp.max-273)} °C</span></h5>
+                        <h5><span>{Math.floor(e.temp.min)} °C</span> / <span>{Math.floor(e.temp.max)} °C</span></h5>
                           <p>{e.weather[0].description}</p>
                         <img src={`http://openweathermap.org/img/wn/${e.weather[0].icon}@2x.png`} alt="bh" />
                     </div>
                 ))
                 :<div>Loading...</div>
             }
+             </div>
+            <div className="graph_div">
+
               <Chart
           type="area"
           series={[
             {
               name: "Temperature",
-              data: [],
+              data: [daily.morn,daily.max,daily.day,daily.min],
             },
           ]}
           options={{
@@ -103,10 +111,11 @@ export const Home=()=>{
               categories: ["6:00am", "12:00pm", "6:00pm", "12:00am"],
             },
           }}
-        />
+          />
+          </div>
 
            
-            </div>
+           
         </div>
         </>
     )

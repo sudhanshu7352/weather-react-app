@@ -4,7 +4,7 @@
     gap: 1.5%;
     margin-top: 50px;
 }
-.temp_div>div{
+.temp_div .small_div{
  border: 2px solid gray;
  border-radius: 8px;
 }
@@ -64,4 +64,7 @@
     font-size: 18px;
     font-weight: 600;
     padding-left: 10px;
+  }
+  .graph_div{
+    width:100%
   }
