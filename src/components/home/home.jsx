@@ -60,7 +60,7 @@ export const Home=()=>{
         try {
           let res = await fetch(url);
           let data = await res.json();
-          // console.log("data", data);
+          console.log("data", data);
         setTemp(data)
         } catch (error) {
           console.log(error);
@@ -104,8 +104,8 @@ export const Home=()=>{
              </div>
             <div className="graph_div">
                <div className="temp_img">
-                <h1>{Math.floor(daily.max?daily.max:30)}°C</h1>
-                <img src={`http://openweathermap.org/img/wn/${icon?icon:"10d"}@2x.png`} alt="img" />
+                <h1>{Math.floor(daily.max?daily.max:temp.current.temp)}°C</h1>
+                <img src={`http://openweathermap.org/img/wn/${icon?icon:temp.current.weather[0].icon}@2x.png`} alt="img" />
                </div>
                {daily.morn?
               <Chart
