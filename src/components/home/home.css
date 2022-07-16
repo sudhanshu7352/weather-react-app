@@ -87,3 +87,21 @@
     width: 130px;
     height: 130px;
   }
+
+ .humi_div{
+     display: flex;
+     justify-content: space-around;
+  }
+  .sun_div{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 50px;
+  }
+  .humi_div div{
+    background-color: rgb(179,212,255);
+    line-height: 10px;
+    font-family: monospace;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 0px 40px;
+  }
