@@ -202,12 +202,12 @@ export const Home = () => {
           </div>
 
           <div className="sun_div">
-          <div>
-              <h2>Sunrise</h2>
+            <div>
+              <h3>Sunrise</h3>
               <p>{TimeConvert(temp.current.sunrise)} am</p>
             </div>
             <div>
-              <h2>Sunset</h2>
+              <h3>Sunset</h3>
               <p>{TimeConvert(temp.current.sunset)} pm</p>
             </div>
            </div>

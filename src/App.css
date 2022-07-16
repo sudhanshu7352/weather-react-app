@@ -3,7 +3,11 @@
   width: 70%;
   margin: auto;
 }
-
+@media screen and (max-width: 480px) {
+  .App{
+    width: 90%;
+  }
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
