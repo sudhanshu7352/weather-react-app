@@ -102,11 +102,17 @@ export const Home=()=>{
                 :<div>Loading...</div>
             }
              </div>
+
             <div className="graph_div">
+             { 
+            temp.daily ?
                <div className="temp_img">
                 <h1>{Math.floor(daily.max?daily.max:temp.current.temp)}°C</h1>
-                <img src={`http://openweathermap.org/img/wn/${icon?icon:temp.current.weather[0].icon}@2x.png`} alt="img" />
+                <img src={`http://openweathermap.org/img/wn/${icon?icon:temp.current.weather[0].icon }@2x.png`} alt="img" />
                </div>
+               
+               :(<div>Loading...</div>)
+             }
                {daily.morn?
               <Chart
           type="area"
@@ -139,7 +145,7 @@ export const Home=()=>{
           series={[
             {
               name: "Temperature",
-              data: [22,36,25,20],
+              data: [25,36,25,20],
             },
           ]}
           options={{
