@@ -104,9 +104,10 @@ export const Home=()=>{
              </div>
             <div className="graph_div">
                <div className="temp_img">
-                <h1>{Math.floor(daily.max)}°C</h1>
-                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="img" />
+                <h1>{Math.floor(daily.max?daily.max:30)}°C</h1>
+                <img src={`http://openweathermap.org/img/wn/${icon?icon:"10d"}@2x.png`} alt="img" />
                </div>
+               {daily.morn?
               <Chart
           type="area"
           series={[
@@ -132,7 +133,34 @@ export const Home=()=>{
               categories: ["6:00am", "12:00pm", "6:00pm", "12:00am"],
             },
           }}
+          />:
+          <Chart
+          type="area"
+          series={[
+            {
+              name: "Temperature",
+              data: [22,36,25,20],
+            },
+          ]}
+          options={{
+            dataLabels: {
+              formatter: (val) => {
+                // return `${val}℃`;
+              },
+            },
+            yaxis: {
+              labels: {
+                formatter: (val) => {
+                  return `${Math.floor(val)}℃`;
+                },
+              },
+            },
+            xaxis: {
+              categories: ["6:00am", "12:00pm", "6:00pm", "12:00am"],
+            },
+          }}
           />
+        }
           </div>
 
            
