@@ -104,7 +104,7 @@
     font-family: monospace;
     border-radius: 10px;
     margin: 5px;
-    padding: 0px 40px;
+    padding: 0px 5%;
   }
   .sun_div div{
     line-height: 10px;
@@ -112,12 +112,12 @@
     border-radius: 10px;
     margin-top: 5px;
     font-weight: 400;
-    padding: 0px 30px;
+    padding: 0px 6%;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 600px) {
     .temp_div{
       display: grid;
-      grid-template-columns: repeat(8,24%);
+      grid-template-columns: repeat(8,25%);
       overflow: scroll;
       /* width: 200%; */
   }
