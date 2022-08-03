@@ -24,6 +24,7 @@ export const Home = () => {
     //   // console.log(e,"onclick")
     setDaily(arr);
   };
+  //location by ip address
   useEffect(() => {
     axios.get("https://ipinfo.io/json?token=52ed0181817dc8").then((res) => {
       console.log(res.data.city);
