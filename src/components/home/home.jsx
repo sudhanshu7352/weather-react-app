@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import "./home.css";
+// import {debounce} from 'lodash';
 import searchIcon from "../icons/search.jpeg";
 import pin from "../icons/pin.jpeg";
 import Chart from "react-apexcharts";
@@ -10,13 +11,8 @@ export const Home = () => {
   const [temp, setTemp] = useState([]);
   const [daily, setDaily] = useState([]);
   const [icon, setIcon] = useState("");
-
-  //  const city =()=>{
-  //   axios.get("https://ipinfo.io/json?token=52ed0181817dc8").then((res)=>{
-  //     console.log(res.data.city)
-  //        setSearch(res.data.city)
-  //   })
-  //  }
+  let wait;
+  
   const dailyData = (e) => {
     let arr = e.temp;
     console.log(e);
@@ -32,11 +28,16 @@ export const Home = () => {
     });
   }, []);
   useEffect(() => {
-    getData();
+       getData()
   }, [search]);
+  
   const handleInput = (e) => {
     setSearch(e.target.value);
+    // debounce(handleInput,2000)
+
+    // handler(e.target.value)
   };
+
   const getData = async () => {
     //input from user.
     // console.log(search,"f")
@@ -74,6 +75,20 @@ export const Home = () => {
     let rise = hrRise + ":" + minRise.substr(-2);
     return rise
   }
+    // const handler = useCallback(debounce(value=>setSearch(value), 2000), []);
+
+   function debounce(func,delay){
+
+    if(wait){
+        clearTimeout(wait)
+    }
+
+   wait =  setTimeout(function(){
+       func()
+   },delay)
+}
+
+
   return (
     <>
       <div>
@@ -86,7 +101,7 @@ export const Home = () => {
               type="text"
               onChange={handleInput}
               className="search_bar"
-              value={search}
+               value={search}
               placeholder="enter your city"
             />
           </div>
