@@ -11,7 +11,7 @@ export const Home = () => {
   const [temp, setTemp] = useState([]);
   const [daily, setDaily] = useState([]);
   const [icon, setIcon] = useState("");
-  let wait;
+ const [wait,setWait] =useState()
   
   const dailyData = (e) => {
     let arr = e.temp;
@@ -58,7 +58,8 @@ export const Home = () => {
     try {
       let res = await fetch(url);
       let data = await res.json();
-      console.log("data", data);
+      setWait(res.status)
+      console.log("data",wait);
       setTemp(data);
     } catch (error) {
       console.log(error);
@@ -75,20 +76,30 @@ export const Home = () => {
     let rise = hrRise + ":" + minRise.substr(-2);
     return rise
   }
-    // const handler = useCallback(debounce(value=>setSearch(value), 2000), []);
+     
 
-   function debounce(func,delay){
+//    function debounce(func){
 
-    if(wait){
-        clearTimeout(wait)
-    }
+//     if(wait){
+//         clearTimeout(wait)
+//     }
 
-   wait =  setTimeout(function(){
-       func()
-   },delay)
-}
-
-
+//    wait =  setTimeout(function(){
+//        func()
+//    },500)
+// }
+const debounce = (func) => {
+  let timer;
+  return function (...args) {
+    const context = this;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = null;
+      func.apply(context, args);
+    }, 1500);
+  };
+};
+const handler = useCallback(debounce(handleInput), []);
   return (
     <>
       <div>
@@ -99,10 +110,10 @@ export const Home = () => {
           <div className="inputDiv">
             <input
               type="text"
-              onChange={handleInput}
+              onChange={(e)=>handler(e)}
               className="search_bar"
-               value={search}
-              placeholder="enter your city"
+              //  value={search}
+              placeholder="Search your city"
             />
           </div>
           <div className="searchIconDiv">
@@ -137,7 +148,10 @@ export const Home = () => {
 
         <div className="graph_div">
           {temp.daily ? (
+            <>
+              <h2>{(search.length>2)?search:null}</h2>
             <div className="temp_img">
+              {/* {wait} */}
               <h1>{Math.floor(daily.max ? daily.max : temp.current.temp)}°C</h1>
               <img
                 src={`http://openweathermap.org/img/wn/${
@@ -146,6 +160,7 @@ export const Home = () => {
                 alt="img"
               />
             </div>
+            </>
           ) : (
             <div>Loading...</div>
           )}
