@@ -114,6 +114,15 @@
     font-weight: 400;
     padding: 0px 6%;
   }
+  .city_name{
+    margin-left: -82%;
+    padding-top: 1.5%;
+    font-family: cursive;
+    color: rgb(233, 68, 7);
+    margin-bottom: -1%;
+    letter-spacing: 3px;
+    
+  }
   @media screen and (max-width: 600px) {
     .temp_div{
       display: grid;

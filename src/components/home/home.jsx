@@ -149,7 +149,7 @@ const handler = useCallback(debounce(handleInput), []);
         <div className="graph_div">
           {temp.daily ? (
             <>
-              <h2>{(search.length>2)?search:null}</h2>
+              <h1 className="city_name">{(search.length>2)?search:null}</h1>
             <div className="temp_img">
               {/* {wait} */}
               <h1>{Math.floor(daily.max ? daily.max : temp.current.temp)}°C</h1>
