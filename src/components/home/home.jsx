@@ -33,9 +33,7 @@ export const Home = () => {
   
   const handleInput = (e) => {
     setSearch(e.target.value);
-    // debounce(handleInput,2000)
-
-    // handler(e.target.value)
+   
   };
 
   const getData = async () => {
@@ -78,16 +76,7 @@ export const Home = () => {
   }
      
 
-//    function debounce(func){
 
-//     if(wait){
-//         clearTimeout(wait)
-//     }
-
-//    wait =  setTimeout(function(){
-//        func()
-//    },500)
-// }
 const debounce = (func) => {
   let timer;
   return function (...args) {
